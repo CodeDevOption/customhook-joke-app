@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
+import useCustomHook from './useCustomHook';
 
 function App() {
-  return (
+  const firsnameRef = useRef(null);
+  const lastnameRef = useRef(null);
+  const [firsname,setfirstname] = useState("");
+  const [lastname,setlastname] = useState("");
+
+  const s = useCustomHook(firsname,lastname);
+
+  const handleClik = (e)=>{
+    e.preventDefault();
+    setfirstname(firsnameRef.current.value);
+    setlastname(lastnameRef.current.value);
+  };
+return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Custom Hook Joke App</h1>
+      <p>{s}</p>
+      
+
+        <form >
+          <input type="text" ref={firsnameRef} /> <br />
+          <input type="text" ref={lastnameRef} /><br />
+          <button type='submit' onClick={handleClik}>Submit</button>
+        </form>
     </div>
   );
 }
